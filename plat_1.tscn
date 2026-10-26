@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://chiqsxb7lmfr2"]
+
+[ext_resource type="Script" uid="uid://csehclamhrs2s" path="res://plat_1.gd" id="1_ygld0"]
+
+[sub_resource type="Curve2D" id="Curve2D_0e48y"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 94, 145, -37.470978, -36.196453, 37.470978, 36.196453, 150, 224, 0, 0, 0, 0, 231, 280, 0, 0, 0, 0, 278, 280, 0, 0, 0, 0, 278, 282, 0, 0, 0, 0, 93, 282, 0, 0, 0, 0, 94, 145)
+}
+point_count = 7
+
+[node name="plat1" type="StaticBody2D" unique_id=733479319]
+position = Vector2(8, 6)
+script = ExtResource("1_ygld0")
+
+[node name="Path2D" type="Path2D" parent="." unique_id=1726089410]
+position = Vector2(-155, -112)
+curve = SubResource("Curve2D_0e48y")
+
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=225738226]
+position = Vector2(-155, -112)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=353458357]
+position = Vector2(-155, -112)
