@@ -1,12 +1,14 @@
 [gd_scene format=3 uid="uid://dlv3bbb5ivlg8"]
 
 [ext_resource type="Script" uid="uid://csehclamhrs2s" path="res://plat_1.gd" id="1_0e48y"]
+[ext_resource type="Script" uid="uid://v5k4ucu5ppg7" path="res://main.gd" id="1_0hol4"]
 [ext_resource type="Texture2D" uid="uid://cd770mi6kgg04" path="res://icon.svg" id="2_0e48y"]
+[ext_resource type="Script" uid="uid://cd5vurqgrq7cr" path="res://ball.gd" id="2_0hol4"]
 [ext_resource type="Script" uid="uid://btcibx16fkhtt" path="res://rigid_body_2d_2.gd" id="3_epypp"]
 
 [sub_resource type="Curve2D" id="Curve2D_0e48y"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 94, 145, -37.470978, -36.196453, 37.470978, 36.196453, 150, 224, 0, 0, 0, 0, 231, 280, 0, 0, 0, 0, 278, 280, 0, 0, 0, 0, 278, 282, 0, 0, 0, 0, 93, 282, 0, 0, 0, 0, 94, 145)
+"points": PackedVector2Array(0, 0, 0, 0, -22, 7, -19.22831, 7.45183, 19.22831, -7.45183, 59, 43, -54.02015, -32.908825, 54.02015, 32.908825, 107, 97, 0, 0, 0, 0, 216, 143, 91.27542, 42.222645, -91.27542, -42.222645, 43, 102, 0, 0, 0, 0, -27, 46, 0, 0, 0, 0, -22, 7)
 }
 point_count = 7
 
@@ -14,116 +16,128 @@ point_count = 7
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2jouu"]
 
+[sub_resource type="GDScript" id="GDScript_q6r6c"]
+script/source = "extends StaticBody2D
+
+
+func _ready() -> void:
+	var points = $Path2D.curve.get_baked_points()
+	$Polygon2D.polygon = points
+	$CollisionPolygon2D.polygon = points
+"
+
 [sub_resource type="Curve2D" id="Curve2D_epypp"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, -69, 28, 0, 0, 0, 0, 68, 162, 0, 0, 0, 0, -68, 161, 0, 0, 0, 0, -187, 161, -27.851547, 27.201813, 27.851547, -27.201813, -94, 121, 0, 0, 0, 0, -69, 28)
 }
 point_count = 6
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2jouu"]
-size = Vector2(109, 20)
+[sub_resource type="Curve2D" id="Curve2D_q6r6c"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 56, -99, 0, 0, 0, 0, 125, 95, 0, 0, 0, 0, 57, 96, 0, 0, 0, 0, 56, -99)
+}
+point_count = 4
+
+[sub_resource type="Curve2D" id="Curve2D_kdubu"]
+_data = {
+"points": PackedVector2Array(45.684116, 17.806015, -45.684116, -17.806015, 249, -98, 38.13005, 24.820505, -38.13005, -24.820505, 123, -98, 0, 0, 0, 0, 122, -20, 0, 0, 0, 0, 587, -20, 0, 0, 0, 0, 586, -72, -20.144178, -6.6547728, 20.144178, 6.6547728, 510, -83, 11.690818, 0.7194349, -11.690818, -0.7194349, 508, -29, -13.849122, -0.17985873, 13.849122, 0.17985873, 480, -30, 23.201777, -0.35971746, -23.201777, 0.35971746, 479, -88, 16.367144, 4.3166094, -16.367144, -4.3166094, 361, -93, 18.34559, 0.89929366, -18.34559, -0.89929366, 356, -36, 10.431807, 0, -10.431807, 0, 321, -38, -11.510959, -7.0144906, 11.510959, 7.0144906, 311, -95, 0, 0, 0, 0, 249, -98)
+}
+point_count = 14
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4i44c"]
+size = Vector2(17, 70)
 
 [node name="Node2D" type="Node2D" unique_id=1802570973]
+script = ExtResource("1_0hol4")
 
 [node name="plat1" type="StaticBody2D" parent="." unique_id=2137631412]
-position = Vector2(8, 6)
+position = Vector2(-99, -42)
 script = ExtResource("1_0e48y")
 
 [node name="Path2D" type="Path2D" parent="plat1" unique_id=2027012772]
-position = Vector2(-155, -112)
+position = Vector2(37, 43)
 curve = SubResource("Curve2D_0e48y")
 
 [node name="Polygon2D" type="Polygon2D" parent="plat1" unique_id=1307602314]
-position = Vector2(-155, -112)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="plat1" unique_id=1575744239]
-position = Vector2(-155, -112)
 
-[node name="RigidBody2D" type="RigidBody2D" parent="." unique_id=719772311]
+[node name="Ball" type="RigidBody2D" parent="." unique_id=719772311]
 physics_material_override = SubResource("PhysicsMaterial_2jouu")
 gravity_scale = 0.6
+script = ExtResource("2_0hol4")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D" unique_id=2127859603]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ball" unique_id=2127859603]
 shape = SubResource("CircleShape2D_2jouu")
 
-[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D" unique_id=1143803584]
+[node name="Sprite2D" type="Sprite2D" parent="Ball" unique_id=1143803584]
 scale = Vector2(0.14453125, 0.14453125)
 texture = ExtResource("2_0e48y")
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=675413571]
-position = Vector2(447, 248)
-
 [node name="plat2" type="StaticBody2D" parent="." unique_id=459478618]
-position = Vector2(470, 408)
-script = ExtResource("1_0e48y")
+position = Vector2(-262, 118)
+script = SubResource("GDScript_q6r6c")
 
 [node name="Polygon2D" type="Polygon2D" parent="plat2" unique_id=841386376]
-position = Vector2(-155, -112)
+position = Vector2(549, 65)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="plat2" unique_id=1903473057]
-position = Vector2(-155, -112)
+position = Vector2(549, 65)
 
 [node name="Path2D" type="Path2D" parent="plat2" unique_id=2143724161]
+position = Vector2(655, 11)
 curve = SubResource("Curve2D_epypp")
 
 [node name="RigidBody2D2" type="RigidBody2D" parent="." unique_id=151113819]
+position = Vector2(-19, -16)
 script = ExtResource("3_epypp")
 
 [node name="Polygon2D" type="Polygon2D" parent="RigidBody2D2" unique_id=1859065180]
-position = Vector2(2, -15)
-polygon = PackedVector2Array(307, 195, 307, 239, 324, 239, 324, 249, 298, 249, 298, 192)
+polygon = PackedVector2Array(6, -50, 6, 26, 57, 26, 57, 34, -3, 34, -3, -50)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RigidBody2D2" unique_id=321729718]
-position = Vector2(2, -15)
 
-[node name="RigidBody2D2" type="RigidBody2D" parent="RigidBody2D2" unique_id=809077915]
-script = ExtResource("3_epypp")
-
-[node name="Polygon2D" type="Polygon2D" parent="RigidBody2D2/RigidBody2D2" unique_id=145803504]
-position = Vector2(2, -15)
-polygon = PackedVector2Array(307, 195, 307, 239, 324, 239, 324, 249, 298, 249, 298, 192)
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RigidBody2D2/RigidBody2D2" unique_id=582750976]
-position = Vector2(2, -15)
-
-[node name="RigidBody2D3" type="RigidBody2D" parent="." unique_id=859685700]
-position = Vector2(316, 219)
-
-[node name="Line2D" type="Line2D" parent="RigidBody2D3" unique_id=1795214119]
-position = Vector2(-240, -152)
-points = PackedVector2Array(239, -154, 239, 161)
-width = 2.0
-
-[node name="RigidBody2D4" type="RigidBody2D" parent="." unique_id=1581792437]
-position = Vector2(374, 217)
-
-[node name="Line2D2" type="Line2D" parent="RigidBody2D4" unique_id=813285653]
-position = Vector2(-298, -140)
-points = PackedVector2Array(297, -152, 297, 143)
-width = 2.0
-
-[node name="PinJoint2D" type="PinJoint2D" parent="." unique_id=1586309452]
-position = Vector2(315, 226)
-node_a = NodePath("../RigidBody2D3")
-node_b = NodePath("../RigidBody2D2")
-
-[node name="PinJoint2D" type="PinJoint2D" parent="PinJoint2D" unique_id=34604645]
-position = Vector2(0, -292)
+[node name="PinJoint2D" type="PinJoint2D" parent="RigidBody2D2" unique_id=1163712924]
+position = Vector2(2, 30)
 node_a = NodePath("../../StaticBody2D")
-node_b = NodePath("../../RigidBody2D3")
+node_b = NodePath("..")
 
-[node name="PinJoint2D2" type="PinJoint2D" parent="." unique_id=789413306]
-position = Vector2(373, 216)
-node_a = NodePath("../RigidBody2D4")
-node_b = NodePath("../RigidBody2D2")
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1373900128]
+position = Vector2(-260, 15)
 
-[node name="PinJoint2D2" type="PinJoint2D" parent="PinJoint2D2" unique_id=2066481076]
-position = Vector2(0, -280)
-node_a = NodePath("../../RigidBody2D4")
-node_b = NodePath("../../StaticBody2D")
+[node name="Camera2D" type="Camera2D" parent="." unique_id=675413571]
+position = Vector2(195, -6)
+zoom = Vector2(2, 2)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1930207558]
+[node name="StaticBody2D2" type="StaticBody2D" parent="." unique_id=803124502]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1727283507]
-position = Vector2(345.5, -65)
-shape = SubResource("RectangleShape2D_2jouu")
+[node name="plat3" type="StaticBody2D" parent="." unique_id=439954601]
+position = Vector2(-36, 319)
+script = ExtResource("1_0e48y")
+
+[node name="Path2D" type="Path2D" parent="plat3" unique_id=1657640773]
+position = Vector2(-68, 4)
+curve = SubResource("Curve2D_q6r6c")
+
+[node name="Polygon2D" type="Polygon2D" parent="plat3" unique_id=1683729708]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="plat3" unique_id=956550058]
+
+[node name="plat4" type="StaticBody2D" parent="." unique_id=1515047628]
+position = Vector2(-184, 550)
+script = ExtResource("1_0e48y")
+
+[node name="Path2D" type="Path2D" parent="plat4" unique_id=458127440]
+position = Vector2(-68, 4)
+curve = SubResource("Curve2D_kdubu")
+
+[node name="Polygon2D" type="Polygon2D" parent="plat4" unique_id=1645102651]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="plat4" unique_id=960075991]
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1547109301]
+position = Vector2(380, 408)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1154497013]
+position = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_4i44c")
